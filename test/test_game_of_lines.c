@@ -38,7 +38,7 @@ TEST_CASE(check_column_win_test,
     int win = winner(arena, 4, 3, row, 4, player1_piece);
 
 
-    CHECK_EQ_INT(win, 1);
+    CHECK_EQ_INT(win, player1_piece);
 )
 
 TEST_CASE(check_diagonal_win_test,
@@ -75,7 +75,7 @@ TEST_CASE(check_diagonal_win_test,
 
     int win = winner(arena, 4, 3, row, 4, player1_piece);
 
-    CHECK_EQ_INT(win, 1);
+    CHECK_EQ_INT(win, player1_piece);
 )
 
 
