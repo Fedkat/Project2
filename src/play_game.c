@@ -44,7 +44,6 @@ void game_of_lines(int opponent_is_ai, int size_of_arena, int size_of_win_line) 
         arena[i] = (cell_values*)malloc(sizeof(int) * size_of_arena);
     }
 
-
     for (int i = 0; i < size_of_arena; i++)
     {
         for (int j = 0; j < size_of_arena; j++)
