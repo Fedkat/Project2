@@ -88,7 +88,7 @@ void scan_settings(int* opponent_is_ai, int* size_of_arena, int* size_of_win_lin
     {
         char opponent_is_ai_char;
 
-        fseek(stdin,0,SEEK_END);
+        // fseek(stdin,0,SEEK_END);
         printf("Play against a computer (y/n)\n>");
         scanf(" %c", &opponent_is_ai_char);
         opponent_is_ai_char = tolower(opponent_is_ai_char);
@@ -111,7 +111,7 @@ void scan_settings(int* opponent_is_ai, int* size_of_arena, int* size_of_win_lin
     {
         char size_of_arena_str[100];
 
-        fseek(stdin,0,SEEK_END);
+        // fseek(stdin,0,SEEK_END);
 
         printf("Size of arena\n>");
         scanf(" %s", size_of_arena_str);
@@ -130,7 +130,7 @@ void scan_settings(int* opponent_is_ai, int* size_of_arena, int* size_of_win_lin
     {
         char size_of_win_line_str[100];
 
-        fseek(stdin,0,SEEK_END);
+        // fseek(stdin,0,SEEK_END);
 
         printf("Length of winning lines\n>");
         scanf(" %s", size_of_win_line_str);
