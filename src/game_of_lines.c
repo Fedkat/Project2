@@ -76,6 +76,7 @@ void print_arena(cell_values** arena, int size_of_arena)
     }
 }
 
+//tjekker om spillet er uafgjort
 int check_draw(cell_values** arena, int size_of_arena)
 {
     for (int i = 0; i < size_of_arena; i++)
@@ -88,6 +89,7 @@ int check_draw(cell_values** arena, int size_of_arena)
     return 0;
 }
 
+//tjekker om den seneste spiller vandt
 int winner(cell_values** arena, int size_of_arena, int prev_column, int prev_row, int size_of_win_line, int player)
 {
     //tjekker om mængden af brikker der forekommer i streg
@@ -104,7 +106,7 @@ int winner(cell_values** arena, int size_of_arena, int prev_column, int prev_row
     return -1;
 }
 
-//tjekker igennem hele kolonnen hvor den sidst placerede brik blev sat i for at se hvor mange af en spillers brikker der blev sat i kolonnen i streg
+//tjekker igennem hele kolonnen hvor den sidst placerede brik blev sat i for at se om det var et vindende træk
 int check_column(cell_values* prev_column, int size_of_arena, int size_of_win_line, int player)
 {
     int counter = 0;
@@ -126,7 +128,7 @@ int check_column(cell_values* prev_column, int size_of_arena, int size_of_win_li
     return 0;
 }
 
-//tjekker igennem hele rækken hvor den sidst placerede brik blev sat i for at se hvor mange af en spillers brikker der blev sat i rækken i streg
+//tjekker igennem hele rækken hvor den sidst placerede brik blev sat i for at se om det var et vindende træk
 int check_row(cell_values** arena, int size_of_arena, int prev_row, int size_of_win_line, int player)
 {
     int counter = 0;
@@ -148,6 +150,7 @@ int check_row(cell_values** arena, int size_of_arena, int prev_row, int size_of_
     return 0;
 }
 
+//tjekker i et kryds som går henover den sidst placerede brik for at se om det var et vindende træk
 int check_diagonals(cell_values** arena, int size_of_arena, int prev_column, int prev_row, int size_of_win_line, int player)
 {
     int temp_column = prev_column;
@@ -198,8 +201,5 @@ int check_diagonals(cell_values** arena, int size_of_arena, int prev_column, int
         }
     }
 
-    //ved de to diagonale bevægelser er der tjekket i et kryds henover den
-    //sidst placerede brik for at se hvor mange af en spillers brikker der forekom i streg i hver retning
-    //derfra returneres den største af de to
     return 0;
 }

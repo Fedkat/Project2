@@ -27,11 +27,10 @@ int string_to_int(char* str);
 
 int main(void) {
     int opponent_is_ai, size_of_arena, size_of_win_line;
-    srand(time(NULL));
+    srand(time(NULL)); //kun brugt til ai
 
     scan_settings(&opponent_is_ai, &size_of_arena, &size_of_win_line);
 
-    // Run the game
     game_of_lines(opponent_is_ai, size_of_arena, size_of_win_line);
 
     return 0;
@@ -55,13 +54,14 @@ void game_of_lines(int opponent_is_ai, int size_of_arena, int size_of_win_line) 
     print_arena(arena, size_of_arena);
 
 
-    int whose_turn = 0;  // Who should perform the next move: Player 0 or Player/Computer 1?
+    int whose_turn = 0;
 
     int the_winner;
 
     int column_to_play;
     int row;
     do {
+        //hvis man vil have ai og det er spiller 2 tur så laver ai et træk, ellers er det spiller 1 eller 2 (menneske)
         column_to_play = opponent_is_ai && whose_turn ? ai_move(arena, size_of_arena) : scan_move(arena, size_of_arena, whose_turn);
 
         column_to_play--;
@@ -69,19 +69,19 @@ void game_of_lines(int opponent_is_ai, int size_of_arena, int size_of_win_line) 
 
         print_arena(arena, size_of_arena);
 
-        if (check_draw(arena, size_of_arena))
+        if (check_draw(arena, size_of_arena)) //hvis der ikke kan placeres flere brikker, så er spillet uafgjort
         {
             printf("game ends in draw");
             exit(EXIT_SUCCESS);
         }
         the_winner = winner(arena, size_of_arena, column_to_play, row, size_of_win_line, whose_turn);
-        whose_turn = !whose_turn;
+        whose_turn = !whose_turn; //der skiftes hvilken spiller der er aktiv
     } while (the_winner == -1);
     free(arena);
     printf("player %d won", the_winner + 1);
 }
 
-
+//giver mulighed for input til indstillinger, med input validering
 void scan_settings(int* opponent_is_ai, int* size_of_arena, int* size_of_win_line)
 {
     while (1)
@@ -148,7 +148,6 @@ void scan_settings(int* opponent_is_ai, int* size_of_arena, int* size_of_win_lin
 
 int string_is_number(char* str)
 {
-    int checks = 0;
     int length = strlen(str);
     for (int i = 0; i < length; i++)
     {
