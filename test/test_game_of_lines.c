@@ -3,7 +3,12 @@
 
 // TODO: Write unit tests!
 TEST_CASE(test_name,
-    CHECK_FAIL("Test is not yet implemented!");
+    cell_values column[] = {2, 2, 1};
+    int row;
+
+    update_arena(column, 3, &row, player1_piece);
+
+    CHECK_EQ_INT(column[1], player1_piece);
 )
 
 
