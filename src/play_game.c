@@ -23,7 +23,7 @@ int string_is_number(char* str);
 //omdanner en string til int
 int string_to_int(char* str);
 
-int main(void) {
+int main() {
     int opponent_is_ai, size_of_arena, size_of_win_line;
     srand(time(NULL)); //kun brugt til ai
 
@@ -34,16 +34,7 @@ int main(void) {
 }
 
 void game_of_lines(int opponent_is_ai, int size_of_arena, int size_of_win_line) {
-    cell_values** arena = malloc(sizeof(int) * size_of_arena * size_of_arena);
-    for(int i = 0; i < size_of_arena; i++) {
-        arena[i] = (cell_values*)malloc(sizeof(int) * size_of_arena);
-    }
-
-    for (int i = 0; i < size_of_arena; i++) {
-        for (int j = 0; j < size_of_arena; j++) {
-            arena[j][i] = empty;
-        }
-    }
+    cell_values** arena[size_of_arena][size_of_arena] = {{ empty }};
 
     print_arena(arena, size_of_arena);
 
@@ -68,7 +59,6 @@ void game_of_lines(int opponent_is_ai, int size_of_arena, int size_of_win_line) 
         //der skiftes hvilken spiller der er aktiv
         whose_turn = !whose_turn; 
     } while (the_winner == -1);
-    free(arena);
     printf("player %d won", the_winner + 1);
 }
 
@@ -78,13 +68,12 @@ void scan_settings(int* opponent_is_ai, int* size_of_arena, int* size_of_win_lin
     while (opponent_is_ai_char != 'y' || opponent_is_ai_char != 'n') {
         printf("Play against a computer (y/n)\n>");
         scanf(" %c", &opponent_is_ai_char);
-        opponent_is_ai_char = tolower(opponent_is_ai_char);
-        
-        //opponent_is_ai bliver 1 hvis opponent_is_ai_char har værdien 'y',
-        //ellers bliver den til 0, da der er blevet tjekket om opponent_is_ai_char
-        //endten er y eller n, så kan opponent_is_ai kun blive 0 hvis opponent_is_ai_char er 'n'
-        *opponent_is_ai = opponent_is_ai_char == 'y';
     }
+    opponent_is_ai_char = tolower(opponent_is_ai_char);
+    //opponent_is_ai bliver 1 hvis opponent_is_ai_char har værdien 'y',
+    //ellers bliver den til 0, da der er blevet tjekket om opponent_is_ai_char
+    //endten er y eller n, så kan opponent_is_ai kun blive 0 hvis opponent_is_ai_char er 'n'
+    *opponent_is_ai = opponent_is_ai_char == 'y';
 
     char size_of_arena_str[100] = { NULL };
     //programmet fejler hvis der inputtes en meget lang string og så et korrekt nummer, men kan ikke fikse
@@ -106,7 +95,7 @@ void scan_settings(int* opponent_is_ai, int* size_of_arena, int* size_of_win_lin
 
         //validation
         //tillader ikke vindende linjer længere end der er plads til
-        if (!string_is_number(size_of_win_line_str){
+        if (!string_is_number(size_of_win_line_str)) {
             printf("invalid\n");
             continue;
         }
@@ -153,8 +142,8 @@ int string_to_int(char* str)
         //der subtraheres med '0' da tal-karakterenes ('0' → '9')
         //int værdier strækker sig mellem 48 til 57, så for at
         //konvertere et enkelt tegn til tal trækkes den laveste tal karakter ('0') fra
-        num += (str[(length - 1) - i] - '0') * pow(10.0, i);
+        const int current_index = (length - 1) - i;
+        num += (str[current_index] - '0') * pow(10.0, i);
     }
     return num;
 }
-
