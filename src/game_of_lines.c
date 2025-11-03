@@ -107,12 +107,12 @@ int winner(cell_values** arena, int size_of_arena, int prev_column, int prev_row
 }
 
 //tjekker igennem hele kolonnen hvor den sidst placerede brik blev sat i for at se om det var et vindende træk
-int check_column(cell_values* prev_column, int size_of_arena, int size_of_win_line, int player)
+int check_column(cell_values* column, int size_of_arena, int size_of_win_line, int player)
 {
     int counter = 0;
     for (int i = 0; i < size_of_arena; i++)
     {
-        if (prev_column[i] == player)
+        if (column[i] == player)
         {
             counter++;
             if (counter >= size_of_win_line)
@@ -129,12 +129,12 @@ int check_column(cell_values* prev_column, int size_of_arena, int size_of_win_li
 }
 
 //tjekker igennem hele rækken hvor den sidst placerede brik blev sat i for at se om det var et vindende træk
-int check_row(cell_values** arena, int size_of_arena, int prev_row, int size_of_win_line, int player)
+int check_row(cell_values** arena, int size_of_arena, int row, int size_of_win_line, int player)
 {
     int counter = 0;
     for (int i = 0; i < size_of_arena; i++)
     {
-        if (arena[i][prev_row] == player)
+        if (arena[i][row] == player)
         {
             counter++;
             if (counter >= size_of_win_line)
@@ -151,10 +151,10 @@ int check_row(cell_values** arena, int size_of_arena, int prev_row, int size_of_
 }
 
 //tjekker i et kryds som går henover den sidst placerede brik for at se om det var et vindende træk
-int check_diagonals(cell_values** arena, int size_of_arena, int prev_column, int prev_row, int size_of_win_line, int player)
+int check_diagonals(cell_values** arena, int size_of_arena, int column, int row, int size_of_win_line, int player)
 {
-    int temp_column = prev_column;
-    int temp_row = prev_row;
+    int temp_column = column;
+    int temp_row = row;
 
     //går diagonalt opad mod venstre fra den sidst placerede brik indtil en væg bliver ramt
     for (; temp_column > 0 && temp_row > 0; temp_column--, temp_row--);
@@ -177,8 +177,8 @@ int check_diagonals(cell_values** arena, int size_of_arena, int prev_column, int
         }
     }
 
-    temp_column = prev_column;
-    temp_row = prev_row;
+    temp_column = column;
+    temp_row = row;
 
     //går diagonalt opad mod højre fra den sidst placerede brik indtil en væg bliver ramt
     for (; temp_column < size_of_arena - 1 && temp_row > 0; temp_column++, temp_row--);

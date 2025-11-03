@@ -7,15 +7,9 @@
 #include <time.h>
 
 
-
 void game_of_lines(int opponent_is_ai, int size_of_arena, int size_of_win_line);
 
-/**
- * tager og validerer input fra brugeren
- * @param opponent_is_ai pointer til opponent_is_ai
- * @param size_of_arena pointer til size_of_arena
- * @param size_of_win_line pointer til size_of_win_line
- */
+// tager og validerer input fra brugeren
 void scan_settings(int* opponent_is_ai, int* size_of_arena, int* size_of_win_line);
 
 //tjekker om en streng er et tal
@@ -38,6 +32,12 @@ int main(void) {
 
 void game_of_lines(int opponent_is_ai, int size_of_arena, int size_of_win_line) {
     cell_values** arena = malloc(sizeof(int) * size_of_arena * size_of_arena);
+    if (arena == NULL)
+    {
+        printf("No memory :(");
+        exit(0);
+    }
+
     for(int i = 0; i < size_of_arena; i++)
     {
         arena[i] = (cell_values*)malloc(sizeof(int) * size_of_arena);
@@ -113,13 +113,14 @@ void scan_settings(int* opponent_is_ai, int* size_of_arena, int* size_of_win_lin
         printf("Size of arena\n>");
         scanf(" %s", size_of_arena_str);
 
-        if (!string_is_number(size_of_arena_str))
+
+        *size_of_arena = string_to_int(size_of_arena_str);
+        if (!string_is_number(size_of_arena_str) || *size_of_arena <= 0)
         {
             printf("invalid\n");
             continue;
         }
 
-        *size_of_arena = string_to_int(size_of_arena_str);
         break;
     }
 
