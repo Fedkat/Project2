@@ -1,7 +1,7 @@
 #include "mtest.h"
 #include "game_of_lines.h"
 
-// TODO: Write unit tests!
+// TODO: skriv flere idybdegående tests
 TEST_CASE(update_arena_test,
     cell_values column[] = {empty, empty, player2_piece};
     int row;
